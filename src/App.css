@@ -1,0 +1,308 @@
+* {
+  padding: 0px;
+  margin: 0px;
+  box-sizing: border-box;
+}
+body {
+  background-color: #6decf5;
+}
+
+/* SignIn */
+#sigin-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #6decf5;
+  opacity: 1;
+}
+
+#signin-box {
+  background-color: white;
+  width: 40%;
+  height: 70vh;
+  border-radius: 10px;
+  border: 5px solid rgb(36, 105, 109);
+  font-family: "Pangolin", cursive;
+  color: #000000;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+}
+
+#sigin-top {
+  height: 70%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border-bottom: 2px solid #000000;
+}
+
+#sigin-bottom {
+  height: 30%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#sigin-bottom img {
+  width: 11%;
+  height: 10vh;
+}
+
+.sigin-input {
+  width: 60%;
+  height: 40px;
+  border-radius: 25px;
+  border: 2px solid #000000;
+  outline: none;
+  background-color: #00000010;
+  padding-left: 20px;
+}
+
+.sigin-input::placeholder {
+  color: #50cdc6;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 120%;
+  text-align: left;
+}
+
+.signin-eye {
+  position: absolute;
+  left: 59%;
+  top: 44%;
+}
+
+#sigin-button {
+  outline: none;
+  border: none;
+  width: 18%;
+  height: 6vh;
+  font-weight: bold;
+  background-color: #117adb;
+  border-radius: 25px;
+  color: snow;
+}
+
+@media only screen and (max-width: 680px) {
+  #signin-box {
+    width: 80%;
+  }
+  .signin-eye {
+    left: 65%;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  #sigin-button {
+    width: 22%;
+  }
+}
+
+/* Profile */
+#profile-container {
+  background: #6dedf5;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 100px;
+}
+
+#profile-container h1 {
+  width: 100%;
+  height: 15vh;
+  text-align: center;
+  padding-top: 40px;
+}
+/* Profile Details Box */
+#profile-box {
+  width: 70%;
+  background-color: #ffffff;
+  margin: 0px auto;
+  border-radius: 10px;
+  border: 5px solid #3f969b;
+}
+
+#proile-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 160px;
+}
+
+/* Details */
+#profile-details-container {
+  width: 100%;
+}
+/* First Part */
+#profile-details-sub {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 30px;
+}
+
+#profile-details-sub div {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#profile-details-sub-seconddiv {
+  align-items: flex-end;
+  padding-right: 30px;
+}
+
+.profile-class {
+  width: 70%;
+}
+
+#profile-details-sub div input {
+  border: 1.5px solid #000000;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.07);
+  height: 40px;
+  margin: 10px 0px;
+  padding-left: 20px;
+}
+
+#profile-details-sub input::placeholder {
+  color: #50cdc6;
+  font-size: 120%;
+  font-weight: 600;
+  letter-spacing: 2px;
+  padding-left: 0px;
+}
+
+#profile-details-sub input:focus {
+  outline: none;
+}
+
+/* Second Part */
+#profile-extradetails-container {
+  width: 100%;
+
+  padding: 30px;
+  color: #50cdc6;
+}
+
+.profile-title-class {
+  color: black;
+}
+
+.profile-extradetails-input {
+  width: 96.2%;
+  height: 50px;
+  border: 1.5px solid #000000;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.07);
+  margin-bottom: 5px;
+  padding-left: 10px;
+}
+
+.profile-extradetails-input:focus {
+  outline: none;
+}
+
+#profile-skills,
+#profile-experience,
+#profile-resume {
+  margin-top: 30px;
+}
+
+#profile-resume-input {
+  text-align: center;
+}
+
+#profile-resume-input::placeholder {
+  color: #50cdc6;
+  font-size: 120%;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+#profile-upload-resume {
+  border: 1.5px solid #000000;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.07);
+  height: 50px;
+  margin: 10px 0px;
+  padding-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #50cdc6;
+  font-size: 120%;
+  font-weight: 600;
+  letter-spacing: 2px;
+  width: 96.2%;
+  cursor: pointer;
+}
+
+/* End Section */
+.profile-end-buttons:focus {
+  outline: none;
+}
+
+/* Sign Up */
+#signup-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #6decf5;
+}
+
+#signup-box {
+  width: 60%;
+  height: 80vh;
+  background-color: snow;
+  border: 5.39024px solid rgba(63, 150, 155, 0.7);
+  box-shadow: 0px 4.31219px 4.31219px rgba(0, 0, 0, 0.25);
+  border-radius: 10.7805px;
+  font-family: "Pangolin", cursive;
+}
+
+#signup-box h1 {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#signup-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.sigup-input {
+  width: 40%;
+  height: 40px;
+  border-radius: 25px;
+  border: 2px solid #000000;
+  outline: none;
+  background-color: #00000010;
+  padding-left:20px;
+  margin:20px;
+}
+
+.sigup-input::placeholder {
+  color: #50cdc6;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 120%;
+  text-align: left;
+}
