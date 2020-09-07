@@ -6,16 +6,6 @@ const Profile = () => {
   const [experiences, setExperiences] = useState([""]);
   const [resume, setResume] = useState(null);
 
-  const styleButton = {
-    borderRadius: "25px",
-    width: "10.5%",
-    height: "30px",
-    textAlign: "center",
-    border: "none",
-    marginRight: "10px",
-    color: "snow",
-    backgroundColor: "#117ADB",
-  };
   return (
     <div id="profile-container">
       <h1>Profile</h1>
@@ -31,6 +21,7 @@ const Profile = () => {
                 name="name"
                 placeholder="First Name"
                 // TODO: value onchange
+                id="profile-first-name"
                 className="profile-class"
               />
               <input
@@ -39,6 +30,7 @@ const Profile = () => {
                 placeholder="Email"
                 // TODO: value onchange
                 id="profile-email"
+                className="profile-class"
               />
               <input
                 type="text"
@@ -134,17 +126,10 @@ const Profile = () => {
               </div>
             </div>
             <div
-              style={{
-                height: "50px",
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "flex-end",
-                paddingRight: "30px",
-              }}
+              id="profile-buttons-section"
             >
               <button
                 style={{
-                  ...styleButton,
                   backgroundColor: "rgba(237, 30, 30, 0.8)",
                 }}
                 className="profile-end-buttons"
@@ -153,7 +138,6 @@ const Profile = () => {
                 Cancel
               </button>
               <button
-                style={styleButton}
                 className="profile-end-buttons"
                 // TODO:click  value
               >

@@ -90,7 +90,7 @@ body {
   color: snow;
 }
 
-@media only screen and (max-width: 680px) {
+@media only screen and (max-width: 760px) {
   #signin-box {
     width: 80%;
   }
@@ -102,6 +102,12 @@ body {
 @media only screen and (max-width: 360px) {
   #sigin-button {
     width: 22%;
+  }
+}
+
+@media only screen and (max-width: 415px) {
+  #signin-box {
+    width: 100%;
   }
 }
 
@@ -146,6 +152,7 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   padding: 30px;
+  font-size: 1.5vw;
 }
 
 #profile-details-sub div {
@@ -171,6 +178,7 @@ body {
   height: 40px;
   margin: 10px 0px;
   padding-left: 20px;
+  width: 80%;
 }
 
 #profile-details-sub input::placeholder {
@@ -247,8 +255,74 @@ body {
 }
 
 /* End Section */
+#profile-buttons-section {
+  height: 60px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding-right: 30px;
+  flex-wrap: wrap;
+}
+.profile-end-buttons {
+  border-radius: 25px;
+  width: 10.5%;
+  height: 30px;
+  text-align: center;
+  border: none;
+  margin-right: 10px;
+  color: snow;
+  background: #117adb;
+}
 .profile-end-buttons:focus {
   outline: none;
+}
+
+@media only screen and (max-width: 870px) {
+  #profile-box {
+    width: 90%;
+  }
+  #profile-details-sub div input {
+    width: 90%;
+    font-size: 2vw;
+  }
+  #profile-details-sub div {
+    padding: 5px;
+  }
+}
+
+@media only screen and (max-width: 653px) {
+  #profile-box {
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 590px) {
+  #profile-details-sub div input {
+    letter-spacing: 0px;
+    font-size: 2.2vw;
+    padding: 10px;
+  }
+  #profile-details-sub input::placeholder {
+    letter-spacing: 0px;
+  }
+  #profile-buttons-section {
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    padding-right: 10px;
+  }
+  .profile-end-buttons {
+    width: 40%;
+  }
+}
+
+@media only screen and (max-width: 419px) {
+  #profile-details-sub div input {
+    font-size: 2.5vw;
+  }
+  #profile-buttons-section {
+    padding-right: 0px;
+  }
 }
 
 /* Sign Up */
@@ -263,7 +337,7 @@ body {
 
 #signup-box {
   width: 60%;
-  height: 86vh;
+  height: 90vh;
   background-color: snow;
   border: 5.39024px solid rgba(63, 150, 155, 0.7);
   box-shadow: 0px 4.31219px 4.31219px rgba(0, 0, 0, 0.25);
@@ -295,38 +369,40 @@ body {
   border: 2px solid #000000;
   outline: none;
   background-color: #00000010;
-  padding-left:20px;
-  margin:20px;
+  padding-left: 20px;
+  margin: 20px;
+  font-size: 1.2vw;
 }
 
 .sigup-input::placeholder {
   color: #50cdc6;
   font-weight: bold;
   letter-spacing: 2px;
-  font-size: 120%;
+  font-size: 1.2vw;
   text-align: left;
 }
 
-#signup-password,#signup-repassword{
-  position:absolute;
-  cursor:pointer;
-  top:348px;
+#signup-password,
+#signup-repassword {
+  position: absolute;
+  cursor: pointer;
+  top: 332px;
 }
 
-#signup-password{
-  left:44.7%;
+#signup-password {
+  left: 44.7%;
 }
 
-#signup-repassword{
-  left:73.7%;
+#signup-repassword {
+  left: 73.7%;
 }
 
-#signup-button{
+#signup-button {
   display: flex;
   justify-content: center;
   padding: 10px;
 }
-#signup-button button{
+#signup-button button {
   outline: none;
   border: none;
   width: 24%;
@@ -336,12 +412,12 @@ body {
   border-radius: 25px;
   color: snow;
   letter-spacing: 2px;
-  margin:15px;
+  margin: 15px;
 }
 
-#signup-bottom{
+#signup-bottom {
   height: 100px;
-  border-top:2px solid #000000;
+  border-top: 2px solid #000000;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -351,5 +427,94 @@ body {
 
 #signup-bottom img {
   width: 6%;
-  
+}
+
+@media only screen and (max-width: 990px) {
+  #signup-box {
+    width: 80%;
+  }
+  #signup-password {
+    left: 42.5%;
+  }
+
+  #signup-repassword {
+    left: 80.7%;
+  }
+  .sigup-input {
+    font-size: 2.5vw;
+  }
+  .sigup-input::placeholder {
+    font-size: 2vw;
+  }
+}
+
+@media only screen and (max-width: 740px) {
+  #signup-button button {
+    width: 40%;
+    font-size: 3vw;
+  }
+  #signup-box {
+    width: 100%;
+  }
+  #signup-password {
+    left: 41%;
+  }
+
+  #signup-repassword {
+    left: 88%;
+  }
+  .sigup-input {
+    font-size: 2vw;
+  }
+  .sigup-input::placeholder {
+    font-size: 2.5vw;
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .sigup-input {
+    width: 35%;
+  }
+  #signup-password {
+    left: 38%;
+  }
+
+  #signup-repassword {
+    left: 85%;
+  }
+  .sigup-input {
+    font-size: 2vw;
+  }
+  .sigup-input::placeholder {
+    font-size: 2.5vw;
+    letter-spacing: 0.3px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  #signup-password {
+    left: 34%;
+  }
+
+  #signup-repassword {
+    left: 83%;
+  }
+  .sigup-input {
+    font-size: 3vw;
+    padding-left: 5px;
+  }
+  .sigup-input::placeholder {
+    font-size: 2.3vw;
+    letter-spacing: 0px;
+    padding-left: 0px;
+  }
+  #signup-details {
+    justify-content: space-between;
+    margin: 0px;
+    padding: 5px;
+  }
+  #signup-password,
+  #signup-repassword {
+    top: 338px;
+  }
 }
