@@ -37,7 +37,3 @@ const Home = () => {
 };
 
 export default Home;
-
-/* <Link to="/signin">Sign In</Link>
-            <Link to="/profile">Profile</Link>
-            <Link to="/signup">Sign Up</Link> */
