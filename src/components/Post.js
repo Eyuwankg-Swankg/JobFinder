@@ -3,6 +3,7 @@ import searchIcon from "../img/search.png";
 import userIcon from "../img/user.png";
 import chatIcon from "../img/comment.png";
 import JobCard from "./JobCrad";
+import { Redirect } from "react-router-dom";
 const Post = () => {
   const [query, setQuery] = useState("");
   const [jobPost, setJobPost] = useState([
@@ -167,6 +168,11 @@ const Post = () => {
       salary: "70,000",
     },
   ]);
+  const [classes,setClasses]=useState("");
+  const [isChatClicked, setIsChatClicked] = useState(false);
+  const [isProfileClicked, setIsProfileClicked] = useState(false);
+  if (isChatClicked) return <Redirect to="/chat" />;
+  if (isProfileClicked) return <Redirect to="/profile" />;
   return (
     <div id="post-container">
       <nav>
@@ -180,9 +186,33 @@ const Post = () => {
             setQuery(e.target.value);
           }}
         />
-        <img src={searchIcon} id="home-search" />
-        <img src={chatIcon} id="home-chat" />
-        <img src={userIcon} id="home-user" />
+        <img
+          src={searchIcon}
+          id="home-search"
+          // TODO: search accordingly
+        />
+        <img
+          src={chatIcon}
+          id="home-chat"
+          onClick={() => {
+            setIsChatClicked(true);
+          }}
+        />
+        <img
+          src={userIcon}
+          id="home-user"
+          onClick={() => setClasses(classes?"":"nav-dropout")}
+        />
+        <div className={classes}>
+          <p
+            onClick={() => {
+              setIsProfileClicked(true);
+            }}
+          >
+            Profile
+          </p>
+          <p>Logout</p>
+        </div>
       </nav>
       <div id="post-main">
         <div id="post-filter">

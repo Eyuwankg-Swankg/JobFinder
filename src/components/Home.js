@@ -15,8 +15,12 @@ const Home = () => {
       <nav id="home-navbar">
         <h1>Jobconnector</h1>
         <ul>
-          <li onClick={() => setSignin(true)}>Sign In</li>
-          <li onClick={() => setSignup(true)}>Sign Up</li>
+          <li onClick={() => setSignin(true)} style={{ cursor: "pointer" }}>
+            Sign In
+          </li>
+          <li onClick={() => setSignup(true)} style={{ cursor: "pointer" }}>
+            Sign Up
+          </li>
         </ul>
       </nav>
       <div id="home-area">

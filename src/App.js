@@ -10,7 +10,10 @@ import Profile from "./components/Profile";
 import SignUp from "./components/SignUp";
 import Post from "./components/Post"
 import Chat from "./components/Chat"
-
+import firebaseConfig from "./firebse/firebaseConfig"
+import * as firebase from "firebase/app";
+import "firebase/auth";
+firebase.initializeApp(firebaseConfig);
 function App() {
   return (
     <Router>
