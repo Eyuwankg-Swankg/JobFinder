@@ -518,3 +518,128 @@ body {
     top: 338px;
   }
 }
+
+/* Landing Page  aka Home*/
+
+#home-container {
+  width: 100%;
+  height: 100%;
+}
+
+#home-navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #51fafa;
+}
+
+#home-navbar h1 {
+  color: #040aa4;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+#home-navbar ul {
+  width: 200px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+}
+
+#home-navbar ul li {
+  list-style-type: none;
+  color: #040aa4;
+  font-weight: bold;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+#home-navbar ul li:hover {
+  text-shadow: 1px 1px 5px #676bda;
+}
+
+#home-area {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+#home-area img {
+  width: 80%;
+}
+#home-area div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-top: 80px;
+}
+#home-area div h1 {
+  letter-spacing: 1px;
+  color: #040aa4;
+  display: inline-block;
+  width: 86%;
+}
+
+#home-area div h5 {
+  padding-top: 5px;
+  letter-spacing: 1px;
+  font-weight: normal;
+  display: inline-block;
+  width: 65%;
+}
+
+#home-area div h4 {
+  padding-top: 10px;
+  letter-spacing: 1px;
+  display: inline-block;
+  width: 85%;
+}
+
+@media only screen and (max-width: 700px) {
+  #home-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 82.5vh;
+  }
+  #home-area img {
+    position: absolute;
+    top: 200px;
+    width: 80%;
+    opacity: 0.3;
+    z-index: -1;
+  }
+  #home-area div {
+    justify-content: center;
+    align-items: center;
+    padding-top: 0px;
+  }
+  #home-area div h5 {
+    font-weight: bold;
+  }
+  #home-area div h5,
+  h4,
+  h1 {
+    width: 80%;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  #home-navbar {
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-between;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  #home-navbar h1 {
+    font-size: 10vw;
+  }
+}
