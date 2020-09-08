@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Chat = () => {
+const Post = () => {
     return (
         <div>
-            Chat
+            Post
         </div>
     )
 }
 
-export default Chat
+export default Post
