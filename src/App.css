@@ -610,7 +610,7 @@ body {
   #home-area img {
     position: absolute;
     top: 200px;
-    width: 80%;
+    height: 50%;
     opacity: 0.3;
     z-index: -1;
   }
@@ -634,7 +634,7 @@ body {
   #home-navbar {
     flex-direction: column;
     align-items: center;
-    justify-content:space-between;
+    justify-content: space-between;
   }
 }
 
@@ -642,4 +642,85 @@ body {
   #home-navbar h1 {
     font-size: 10vw;
   }
+}
+
+/* Post */
+/* Navbar */
+#post-container nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #3adcdc;
+  padding: 10px 20px 5px 20px;
+  height: 10vh;
+}
+
+#post-container nav input {
+  outline: none;
+  border: none;
+  padding-left: 10px;
+  height: 30px;
+  border-radius: 2px;
+  width: 30%;
+}
+
+#post-container nav h1 {
+  color: #040aa4;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+#home-search {
+  position: absolute;
+  left: 65%;
+  width: 15px;
+}
+
+#home-user {
+  width: 30px;
+}
+#home-chat {
+  width: 30px;
+}
+#post-main {
+  height: 88vh;
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+#post-filter {
+  background: #e8fffb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 90vh;
+}
+.post-filters {
+  outline: none;
+  border: none;
+  padding-left: 10px;
+  height: 30px;
+  border-radius: 2px;
+  width: 90%;
+  background-color: #ffffff;
+}
+
+#post-jobs{
+  background-color: #3adcdc81;
+  padding:20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  overflow-y:scroll;
+}
+/* Job Card */
+#job-card{
+  background-color: snow;
+  width:150px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin:10px;
 }
