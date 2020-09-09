@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import user from "../img/user.png";
+import { Redirect } from "react-router-dom";
 const Profile = () => {
   const [education, setEducation] = useState([""]);
   const [skills, setSkills] = useState([""]);
   const [experiences, setExperiences] = useState([""]);
   const [resume, setResume] = useState(null);
+  const [isCancelClicked, setIsCancelClicked] = useState(false);
 
+  if (isCancelClicked) return <Redirect to="/post" />;
   return (
     <div id="profile-container">
       <h1>Profile</h1>
@@ -125,15 +128,14 @@ const Profile = () => {
                 {resume ? resume : "+ Upload Your Resume"}
               </div>
             </div>
-            <div
-              id="profile-buttons-section"
-            >
+            <div id="profile-buttons-section">
               <button
                 style={{
                   backgroundColor: "rgba(237, 30, 30, 0.8)",
                 }}
                 className="profile-end-buttons"
                 // TODO: click value
+                onClick={() => setIsCancelClicked(!isCancelClicked)}
               >
                 Cancel
               </button>
