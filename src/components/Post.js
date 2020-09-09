@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState ,useContext } from "react";
+import Context from "../context/Context"
 import searchIcon from "../img/search.png";
 import userIcon from "../img/user.png";
 import chatIcon from "../img/comment.png";
 import JobCard from "./JobCrad";
 import { Redirect } from "react-router-dom";
 const Post = () => {
+  //Context
+  const {user}=useContext(Context);
+  //states
   const [query, setQuery] = useState("");
   const [jobPost, setJobPost] = useState([
     {

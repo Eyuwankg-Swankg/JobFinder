@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Helmet } from "react-helmet";
 import "bootstrap/dist/css/bootstrap.min.css";
 import eye from "../img/eye.png";
@@ -10,8 +10,13 @@ import twitter from "../img/twitter.png";
 import { toast, ToastContainer } from "react-toastify";
 import firebase from "firebase";
 import { Redirect } from "react-router-dom";
-
+import Context from "../context/Context";
 const SignIn = () => {
+  //Context
+  const { user, setUser } = useContext(Context);
+  // Firestore
+  var db = firebase.firestore();
+  // States
   const [hide, setHide] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,7 +27,13 @@ const SignIn = () => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
-        console.log(response.user);
+        var id = email.substring(0, email.indexOf("@"));
+        const res = db.collection("users").doc(id).get();
+        res
+          .then((e) => {
+            setUser(e.data());
+          })
+          .catch((error) => toast(error.message, { type: "error" }));
         setEmail("");
         setPassword("");
         toast("Logged In", { type: "success" });
@@ -47,7 +58,7 @@ const SignIn = () => {
       <div id="signin-box">
         <img
           src={back}
-          style={{ paddingLeft: "1%" ,width:"40px",cursor:"pointer"}}
+          style={{ paddingLeft: "1%", width: "40px", cursor: "pointer" }}
           onClick={() => setBackLink(!backLink)}
         />
         <form id="sigin-top" method="POST">

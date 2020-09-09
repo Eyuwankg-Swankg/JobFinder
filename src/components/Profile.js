@@ -1,20 +1,36 @@
-import React, { useState } from "react";
-import user from "../img/user.png";
+import React, { useState, useContext, useEffect } from "react";
+import userIcon from "../img/user.png";
+import Context from "../context/Context";
 import { Redirect } from "react-router-dom";
+import firebase from "firebase";
 const Profile = () => {
+  //Context
+  const { user, setUser } = useContext(Context);
+  //states
   const [education, setEducation] = useState([""]);
   const [skills, setSkills] = useState([""]);
   const [experiences, setExperiences] = useState([""]);
   const [resume, setResume] = useState(null);
   const [isCancelClicked, setIsCancelClicked] = useState(false);
-
+  //set Current Uset values
+  if(user){
+    
+  }
+  //firebase
+  var db = firebase.firestore();
+  // db.collection("chats").doc("Venkatesh").set({});
+  // db.collection("chats")
+  //   .doc("Venkatesh")
+  //   .collection("Karthik")
+  //   .doc()
+  //   .set({ userName: "Venkatesh", message: "Hi" });
   if (isCancelClicked) return <Redirect to="/post" />;
   return (
     <div id="profile-container">
       <h1>Profile</h1>
       <div id="profile-box">
         <div id="proile-img-container">
-          <img src={user} />
+          <img src={userIcon} />
         </div>
         <div id="profile-details-container">
           <div id="profile-details-sub">
@@ -34,6 +50,7 @@ const Profile = () => {
                 // TODO: value onchange
                 id="profile-email"
                 className="profile-class"
+                disabled
               />
               <input
                 type="text"

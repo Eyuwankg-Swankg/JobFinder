@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import Context from "../context/Context";
 import { Helmet } from "react-helmet";
 import eye from "../img/eye.png";
 import hidden from "../img/hidden.png";
@@ -13,6 +14,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { Redirect } from "react-router-dom";
 
 const SignUp = () => {
+  // Firestore
+  var db = firebase.firestore();
+  //Context
+  const { user, setUser } = useContext(Context);
+  // States
   const [firstName, setFirstName] = useState("");
   const [lastName, setlastName] = useState("");
   const [email, setEmail] = useState("");
@@ -22,14 +28,33 @@ const SignUp = () => {
   const [isVisible, setIsVisible] = useState({ pass: false, repass: false });
   const [loggedIn, setLoggedIn] = useState(false);
   const [backLink, setBackLink] = useState(false);
+  const [id,setId]=useState("");
+  //Firestore
+  // var db = firebase.firestore();
+  // var docs=db.collection("chats").doc("Karthik");
+  // var col=docs.collection("Venkatesh");
+  // console.log(col.onSnapshot(e=>console.log(e.docs)))
+  //   e.forEach((k) => console.log(e.docs[0].data()));
 
+  //   .collection(k.data().userName).get().then(p=>console.log(p))
   const firebaseCreateUser = () => {
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then((response) => {
         toast("New User Created", { type: "success" });
-        console.log(response.user);
+        setUser({
+          FirstName: firstName,
+          LastName: lastName,
+          Email: email,
+          Number: number,
+          Gender: "",
+          City: "",
+          Education: [],
+          Skills: [],
+          Experience: [],
+        });
+        setId(email.substring(0, email.indexOf("@")));
         setFirstName("");
         setlastName("");
         setEmail("");
@@ -69,7 +94,10 @@ const SignUp = () => {
     firebaseCreateUser();
   };
   if (backLink) return <Redirect to="/" />;
-  if (loggedIn) return <Redirect to="/post" />;
+  if (loggedIn) {
+    db.collection("users").doc(id).set(user);
+    return <Redirect to="/post" />;
+  }
   return (
     <div id="signup-container">
       <ToastContainer autoClose={3000} hideProgressBar={true} />
@@ -125,7 +153,7 @@ const SignUp = () => {
               name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              minlength={6}
+              minLength={6}
             />
             <input
               className="sigup-input"
