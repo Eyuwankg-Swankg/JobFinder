@@ -7,23 +7,65 @@ const Profile = () => {
   //Context
   const { user, setUser } = useContext(Context);
   //states
-  const [education, setEducation] = useState([""]);
-  const [skills, setSkills] = useState([""]);
-  const [experiences, setExperiences] = useState([""]);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
+  const [gender, setGender] = useState("");
+  const [city, setCity] = useState("");
+  const [education, setEducation] = useState([]);
+  const [skills, setSkills] = useState([]);
+  const [experiences, setExperiences] = useState([]);
   const [resume, setResume] = useState(null);
   const [isCancelClicked, setIsCancelClicked] = useState(false);
-  //set Current Uset values
-  if(user){
-    
+  const [save, setSave] = useState(false);
+  //changeValue in array State
+  function changeState(arr, index, value) {
+    var a = [];
+    for (let i = 0; i < index; i++) a.push(arr[i]);
+    if (value !== "") a.push(value);
+    for (let i = index + 1; i < arr.length; i++) a.push(arr[i]);
+    return a;
   }
+  //set Current Uset values
+  useEffect(() => {
+    if (user) {
+      setFirstName(user.FirstName);
+      setLastName(user.LastName);
+      setEmail(user.Email);
+      setNumber(user.Number);
+      setGender(user.Gender);
+      setCity(user.City);
+      setEducation(user.Education);
+      setSkills(user.Skills);
+      setExperiences(user.Experience);
+    }
+  }, [user]);
+
   //firebase
   var db = firebase.firestore();
-  // db.collection("chats").doc("Venkatesh").set({});
-  // db.collection("chats")
-  //   .doc("Venkatesh")
-  //   .collection("Karthik")
-  //   .doc()
-  //   .set({ userName: "Venkatesh", message: "Hi" });
+  if (save) {
+    const userId = user.Email;
+    const id = userId.substring(0, userId.indexOf("@"));
+    db.collection("users").doc(id).update(user);
+    setSave(false);
+    setIsCancelClicked(!isCancelClicked);
+  }
+  //update values
+  const updateValue = () => {
+    setUser({
+      FirstName: firstName,
+      LastName: lastName,
+      Email: email,
+      Number: number,
+      Gender: gender,
+      City: city,
+      Education: education,
+      Skills: skills,
+      Experience: experiences,
+    });
+    setSave(true);
+  };
   if (isCancelClicked) return <Redirect to="/post" />;
   return (
     <div id="profile-container">
@@ -39,7 +81,8 @@ const Profile = () => {
                 type="text"
                 name="name"
                 placeholder="First Name"
-                // TODO: value onchange
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 id="profile-first-name"
                 className="profile-class"
               />
@@ -47,7 +90,7 @@ const Profile = () => {
                 type="email"
                 name="email"
                 placeholder="Email"
-                // TODO: value onchange
+                value={email}
                 id="profile-email"
                 className="profile-class"
                 disabled
@@ -56,7 +99,8 @@ const Profile = () => {
                 type="text"
                 name="number"
                 placeholder="Phone Number"
-                // TODO: value onchange
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
                 className="profile-class"
               />
             </div>
@@ -65,21 +109,24 @@ const Profile = () => {
                 type="text"
                 name="name"
                 placeholder="Last Name"
-                // TODO: value onchange
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
                 className="profile-class"
               />
               <input
                 type="text"
                 name="gender"
                 placeholder="Gender"
-                // TODO: value onchange
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
                 className="profile-class"
               />
               <input
                 type="text"
                 name="city"
                 placeholder="City"
-                // TODO: value onchange
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
                 className="profile-class"
               />
             </div>
@@ -93,7 +140,10 @@ const Profile = () => {
                   name="name"
                   key={index}
                   class="profile-extradetails-input"
-                  // TODO:value and onChange
+                  value={education[index]}
+                  onChange={(e) => {
+                    setEducation(changeState(education, index, e.target.value));
+                  }}
                 />
               ))}
               <h5
@@ -111,7 +161,10 @@ const Profile = () => {
                   name="name"
                   key={index}
                   class="profile-extradetails-input"
-                  // TODO:value and onChange
+                  value={skills[index]}
+                  onChange={(e) => {
+                    setSkills(changeState(skills, index, e.target.value));
+                  }}
                 />
               ))}
               <h5
@@ -129,7 +182,12 @@ const Profile = () => {
                   name="name"
                   key={index}
                   class="profile-extradetails-input"
-                  // TODO:value and onChange
+                  value={experiences[index]}
+                  onChange={(e) => {
+                    setExperiences(
+                      changeState(experiences, index, e.target.value)
+                    );
+                  }}
                 />
               ))}
               <h5
@@ -151,14 +209,13 @@ const Profile = () => {
                   backgroundColor: "rgba(237, 30, 30, 0.8)",
                 }}
                 className="profile-end-buttons"
-                // TODO: click value
                 onClick={() => setIsCancelClicked(!isCancelClicked)}
               >
                 Cancel
               </button>
               <button
                 className="profile-end-buttons"
-                // TODO:click  value
+                onClick={() => updateValue()}
               >
                 Save
               </button>
