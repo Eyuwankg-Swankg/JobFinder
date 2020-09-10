@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {Helmet} from "react-helmet"
 import { Redirect } from "react-router-dom";
 import Job from "../img/2.jpg";
 const Home = () => {
@@ -12,6 +13,9 @@ const Home = () => {
   }
   return (
     <div id="home-container">
+      <Helmet>
+        <title>Home</title>
+      </Helmet>
       <nav id="home-navbar">
         <h1>Jobconnector</h1>
         <ul>
@@ -23,7 +27,7 @@ const Home = () => {
           </li>
         </ul>
       </nav>
-      <div id="home-area">
+      <div id="home-area" style={{backgroundColor:"#ffffff"}}>
         <img src={Job} />
         <div>
           <h1>Welcome To JobConnector !!!</h1>

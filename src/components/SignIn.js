@@ -22,7 +22,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [backLink, setBackLink] = useState(false);
-  const signInUser = () => {
+  const signInUser = async () => {
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)

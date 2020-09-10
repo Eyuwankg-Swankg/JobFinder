@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
+import {Helmet} from "react-helmet"
 import userIcon from "../img/user.png";
+import back from "../img/back.png";
 import Context from "../context/Context";
 import { Redirect } from "react-router-dom";
 import firebase from "firebase";
@@ -69,8 +71,16 @@ const Profile = () => {
   if (isCancelClicked) return <Redirect to="/post" />;
   return (
     <div id="profile-container">
+      <Helmet>
+        <title>Profile</title>
+      </Helmet>
       <h1>Profile</h1>
       <div id="profile-box">
+        <img
+          src={back}
+          style={{ paddingLeft: "20px", cursor: "pointer" }}
+          onClick={() => setIsCancelClicked(!isCancelClicked)}
+        />
         <div id="proile-img-container">
           <img src={userIcon} />
         </div>

@@ -30,13 +30,6 @@ const SignUp = () => {
   const [backLink, setBackLink] = useState(false);
   const [id,setId]=useState("");
   //Firestore
-  // var db = firebase.firestore();
-  // var docs=db.collection("chats").doc("Karthik");
-  // var col=docs.collection("Venkatesh");
-  // console.log(col.onSnapshot(e=>console.log(e.docs)))
-  //   e.forEach((k) => console.log(e.docs[0].data()));
-
-  //   .collection(k.data().userName).get().then(p=>console.log(p))
   const firebaseCreateUser = () => {
     firebase
       .auth()
@@ -53,6 +46,7 @@ const SignUp = () => {
           Education: [],
           Skills: [],
           Experience: [],
+          chats:[]
         });
         setId(email.substring(0, email.indexOf("@")));
         setFirstName("");
@@ -96,6 +90,7 @@ const SignUp = () => {
   if (backLink) return <Redirect to="/" />;
   if (loggedIn) {
     db.collection("users").doc(id).set(user);
+    db.collection("chats").doc(id).set({});
     return <Redirect to="/post" />;
   }
   return (

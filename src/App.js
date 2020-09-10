@@ -13,15 +13,25 @@ import Profile from "./components/Profile";
 import SignUp from "./components/SignUp";
 import Post from "./components/Post";
 import Chat from "./components/Chat";
+import ViewProfile from "./components/ViewProfile";
+import AddPost from "./components/AddPost";
+//firebase
 import firebaseConfig from "./firebse/firebaseConfig";
 import * as firebase from "firebase/app";
 import "firebase/auth";
 firebase.initializeApp(firebaseConfig);
 function App() {
   const [user, setUser] = useState(null);
-  const [userChats, setUserChats] = useState(null);
+  const [currentChatUserDetails, setCurrentChatUserDetails] = useState(null);
   return (
-    <Context.Provider value={{ user, setUser, userChats, setUserChats }}>
+    <Context.Provider
+      value={{
+        user,
+        setUser,
+        currentChatUserDetails,
+        setCurrentChatUserDetails,
+      }}
+    >
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
@@ -30,6 +40,8 @@ function App() {
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/chat" component={Chat} />
           <Route exact path="/post" component={Post} />
+          <Route exact path="/viewprofile" component={ViewProfile} />
+          <Route exact path="/addpost" component={AddPost} />
           <Route exact path="*" component={Error}>
             Error
           </Route>

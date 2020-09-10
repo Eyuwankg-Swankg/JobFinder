@@ -1,184 +1,49 @@
-import React, { useState ,useContext } from "react";
-import Context from "../context/Context"
+import React, { useState, useContext, useEffect } from "react";
+import { Helmet } from "react-helmet";
+import Context from "../context/Context";
 import searchIcon from "../img/search.png";
 import userIcon from "../img/user.png";
 import chatIcon from "../img/comment.png";
+import AddPostIcon from "../img/add.png";
 import JobCard from "./JobCrad";
 import { Redirect } from "react-router-dom";
+import firebase from "firebase";
 const Post = () => {
   //Context
-  const {user}=useContext(Context);
+  const { user } = useContext(Context);
   //states
   const [query, setQuery] = useState("");
-  const [jobPost, setJobPost] = useState([
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-    {
-      title: "Marketing",
-      name: "MangoDB",
-      worktype: "remote",
-      location: "chennai",
-      duration: "full time",
-      salary: "70,000",
-    },
-  ]);
-  const [classes,setClasses]=useState("");
+  const [jobPost, setJobPost] = useState([]);
+  const [classes, setClasses] = useState("");
+  const [firebaseData,setFirebaseData]=useState(null);
   const [isChatClicked, setIsChatClicked] = useState(false);
+  const [addPost, setAddPost] = useState(false);
   const [isProfileClicked, setIsProfileClicked] = useState(false);
+  const [logout, setLogout] = useState(false);
+  useEffect(() => {
+    var arr=[]
+    const db = firebase.firestore();
+    db.collection("posts").orderBy("timeStamp","desc").onSnapshot((snapshot) => {
+      setFirebaseData(snapshot.docs)
+    });
+  }, []);
+  useEffect(() => {
+    if(firebaseData){
+      var a=[];
+      for(let i of firebaseData)
+        a.push(i.data());
+      setJobPost(a);
+    }
+  }, [firebaseData])
   if (isChatClicked) return <Redirect to="/chat" />;
   if (isProfileClicked) return <Redirect to="/profile" />;
+  if (logout) return <Redirect to="/" />;
+  if (addPost) return <Redirect to="/addpost" />;
   return (
     <div id="post-container">
+      <Helmet>
+        <title>Post</title>
+      </Helmet>
       <nav>
         <h1>Jobconnector</h1>
         <input
@@ -205,7 +70,7 @@ const Post = () => {
         <img
           src={userIcon}
           id="home-user"
-          onClick={() => setClasses(classes?"":"nav-dropout")}
+          onClick={() => setClasses(classes ? "" : "nav-dropout")}
         />
         <div className={classes}>
           <p
@@ -215,7 +80,9 @@ const Post = () => {
           >
             Profile
           </p>
-          <p>Logout</p>
+          <p onClick={() => setLogout(!logout)} style={{ cursor: "pointer" }}>
+            Logout
+          </p>
         </div>
       </nav>
       <div id="post-main">
@@ -272,6 +139,11 @@ const Post = () => {
             <JobCard details={item} key={index} />
           ))}
         </div>
+        <img
+          src={AddPostIcon}
+          id="post-add"
+          onClick={() => setAddPost(!addPost)}
+        />
       </div>
     </div>
   );
