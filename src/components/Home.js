@@ -5,6 +5,7 @@ import Job from "../img/2.jpg";
 const Home = () => {
   const [signin, setSignin] = useState(false);
   const [signup, setSignup] = useState(false);
+  
   if (signup) {
     return <Redirect to="/signup" />;
   }

@@ -7,7 +7,7 @@ import userIcon from "../img/user.png";
 import firebase from "firebase";
 import { Redirect } from "react-router-dom";
 const Chat = () => {
-  const { user, setCurrentChatUserDetails } = useContext(Context);
+  const { user, setCurrentChatUserDetails} = useContext(Context);
   const [userChat, setUserChat] = useState([]);
   const [currentUserChats, setCurrentUserChats] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
@@ -45,7 +45,6 @@ const Chat = () => {
       });
     }
   }, [currentUser]);
-
   if (storeData) {
     const id = user.Email;
     const userId = id.slice(0, id.indexOf("@"));
@@ -114,47 +113,49 @@ const Chat = () => {
             </h5>
           ))}
         </div>
-        {
-          currentUser?(<div className="chat-user">
-          <h4>
-            {currentUser}
-            <img
-              src={userIcon}
-              style={{ paddingLeft: "20px" }}
-              onClick={() => setIsProfileClicked(!isProfileClicked)}
-            />
-          </h4>
-          <div id="chat-messages">
-            {currentUserChats.map((item, index) => (
-              <div
-                key={index}
-                id="chat-individual"
-                className={
-                  rightleft(item.userName)
-                    ? "chat-message-end"
-                    : "chat-message-start"
-                }
-              >
-                <p>{item.message}</p>
-              </div>
-            ))}
+        {currentUser ? (
+          <div className="chat-user">
+            <h4>
+              {currentUser}
+              <img
+                src={userIcon}
+                style={{ paddingLeft: "20px" }}
+                onClick={() => setIsProfileClicked(!isProfileClicked)}
+              />
+            </h4>
+            <div id="chat-messages">
+              {currentUserChats.map((item, index) => (
+                <div
+                  key={index}
+                  id="chat-individual"
+                  className={
+                    rightleft(item.userName)
+                      ? "chat-message-end"
+                      : "chat-message-start"
+                  }
+                >
+                  <p>{item.message}</p>
+                </div>
+              ))}
+            </div>
+            <div id="chat-type">
+              <input
+                type="text"
+                name="message"
+                placeholder="Type Your Message Here..."
+                value={currentMessage}
+                onChange={(e) => setCurrentMessage(e.target.value)}
+              />
+              <img
+                src={send}
+                style={{ cursor: "pointer" }}
+                onClick={() => setStoreData(!storeData)}
+              />
+            </div>
           </div>
-          <div id="chat-type">
-            <input
-              type="text"
-              name="message"
-              placeholder="Type Your Message Here..."
-              value={currentMessage}
-              onChange={(e) => setCurrentMessage(e.target.value)}
-            />
-            <img
-              src={send}
-              style={{ cursor: "pointer" }}
-              onClick={() => setStoreData(!storeData)}
-            />
-          </div>
-        </div>):(<></>)
-        }
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

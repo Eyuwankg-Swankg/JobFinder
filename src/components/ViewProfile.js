@@ -26,7 +26,6 @@ const ViewProfile = () => {
     setEducation(currentChatUserDetails.Education);
     setSkills(currentChatUserDetails.Skills);
     setExperiences(currentChatUserDetails.Experience);
-    console.log(currentChatUserDetails);
   }, []);
   if (isBackClicked) return <Redirect to="/chat" />;
   return (

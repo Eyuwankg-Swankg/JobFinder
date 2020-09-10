@@ -17,7 +17,7 @@ const AddPost = () => {
   const [cancelClicked, setCancelClicked] = useState(false);
   const [addClicked, setAddClicked] = useState(false);
   const changeState = (arr, value, index) => {
-    var a = [];
+    const a = [];
     for (let i = 0; i < index; i++) a.push(arr[i]);
     if (value !== "") a.push(value);
     for (let i = index + 1; i < arr.length; i++) a.push(arr[i]);

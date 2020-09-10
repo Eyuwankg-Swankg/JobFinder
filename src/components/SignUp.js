@@ -25,8 +25,8 @@ const SignUp = () => {
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [loggedIn,setLoggedIn]=useState(false)
   const [isVisible, setIsVisible] = useState({ pass: false, repass: false });
-  const [loggedIn, setLoggedIn] = useState(false);
   const [backLink, setBackLink] = useState(false);
   const [id,setId]=useState("");
   //Firestore
