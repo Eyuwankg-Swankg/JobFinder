@@ -1,16 +1,67 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import back from "../img/back.png";
 import Context from "../context/Context";
 import { Redirect } from "react-router-dom";
+import firebase from "firebase";
 const ViewPost = () => {
-  const { currentPostDetails } = useContext(Context);
+  const { user, currentPostDetails, setCurrentUser } = useContext(Context);
   const [backClicked, setBackClicked] = useState(false);
-  if(backClicked) return <Redirect to="/post"/>
+  const [redirectChat, setRedirectChat] = useState(false);
+  const [postUser, setPostUser] = useState(null);
+  const [currentUserChats, setCurrentUserChats] = useState(null);
+  if (redirectChat) {
+    const db = firebase.firestore();
+    var id = user.Email;
+    var userId = id.slice(0, id.indexOf("@"));
+    db.collection("users")
+      .doc(currentPostDetails.userId)
+      .get()
+      .then((e) => setPostUser(e.data()));
+    db.collection("users")
+      .doc(userId)
+      .get()
+      .then((e) => setCurrentUserChats(e.data()));
+    if (postUser && currentUserChats) {
+      var a = postUser.chats;
+      var b = currentUserChats.chats;
+      if (a.indexOf(userId) == -1) {
+        a.unshift(userId);
+        b.unshift(currentPostDetails.userId);
+        //post user update
+        db.collection("users")
+          .doc(currentPostDetails.userId)
+          .update({ chats: a });
+        db.collection("chats")
+          .doc(currentPostDetails.userId)
+          .collection(userId)
+          .doc("messages")
+          .set({
+            messages: [],
+          });
+        //current user update
+        db.collection("users").doc(userId).update({ chats: b });
+        db.collection("chats")
+          .doc(userId)
+          .collection(currentPostDetails.userId)
+          .doc("messages")
+          .set({
+            messages: [],
+          });
+      }
+      setCurrentUser(currentPostDetails.userId);
+      return <Redirect to="/chat" />;
+    }
+  }
+  if (backClicked) return <Redirect to="/post" />;
   if (currentPostDetails)
     return (
       <div id="addpost-container">
         <div id="addpost-box">
-          <img src={back} style={{padding:"10px 0px 0px 20px",cursor:"pointer"}} onClick={()=>setBackClicked(!backClicked)} />
+          <img
+            src={back}
+            style={{ padding: "10px 0px 0px 20px", cursor: "pointer" }}
+            onClick={() => setBackClicked(!backClicked)}
+          />
           <div id="addpost-details-container">
             <div
               className="addpost-individual-container"
@@ -115,7 +166,7 @@ const ViewPost = () => {
             )}
           </div>
           <div id="addpost-details-bottom-container">
-            {currentPostDetails.requirements > 0 ? (
+            {currentPostDetails.requirements.length > 0 ? (
               <div id="addpost-req">
                 <h5>Requirements</h5>
                 {currentPostDetails.requirements.map((item, index) => (
@@ -131,7 +182,7 @@ const ViewPost = () => {
             ) : (
               <></>
             )}
-            {currentPostDetails.specifications > 0 ? (
+            {currentPostDetails.specifications.length > 0 ? (
               <div id="addpost-spec">
                 <h5>Other Specifications</h5>
                 {currentPostDetails.specifications.map((item, index) => (
@@ -149,7 +200,12 @@ const ViewPost = () => {
             )}
           </div>
           <div id="addpost-buttons-container">
-            <button className="addpost-buttons">Chat</button>
+            <button
+              className="addpost-buttons"
+              onClick={() => setRedirectChat(true)}
+            >
+              Chat
+            </button>
           </div>
         </div>
       </div>

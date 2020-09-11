@@ -28,12 +28,14 @@ const SignIn = () => {
       .signInWithEmailAndPassword(email, password)
       .then((response) => {
         var id = email.substring(0, email.indexOf("@"));
-        const res = db.collection("users").doc(id).get();
-        res
-          .then((e) => {
-            setUser(e.data());
-          })
-          .catch((error) => toast(error.message, { type: "error" }));
+        db.collection("users")
+          .doc(id)
+          .onSnapshot((e) => setUser(e.data()));
+        // res
+        //   .then((e) => {
+        //     setUser(e.data());
+        //   })
+        //   .catch((error) => toast(error.message, { type: "error" }));
         setEmail("");
         setPassword("");
         toast("Logged In", { type: "success" });
