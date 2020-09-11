@@ -15,6 +15,7 @@ import Post from "./components/Post";
 import Chat from "./components/Chat";
 import ViewProfile from "./components/ViewProfile";
 import AddPost from "./components/AddPost";
+import ViewPost from "./components/ViewPost";
 //firebase
 import firebaseConfig from "./firebse/firebaseConfig";
 import * as firebase from "firebase/app";
@@ -23,6 +24,8 @@ firebase.initializeApp(firebaseConfig);
 function App() {
   const [user, setUser] = useState(null);
   const [currentChatUserDetails, setCurrentChatUserDetails] = useState(null);
+  const [currentPostDetails, setCurrentPostDetails] = useState({});
+  const [currentUser, setCurrentUser] = useState(null);
   return (
     <Context.Provider
       value={{
@@ -30,6 +33,10 @@ function App() {
         setUser,
         currentChatUserDetails,
         setCurrentChatUserDetails,
+        currentPostDetails,
+        setCurrentPostDetails,
+        currentUser,
+        setCurrentUser,
       }}
     >
       <Router>
@@ -42,6 +49,7 @@ function App() {
           <Route exact path="/post" component={Post} />
           <Route exact path="/viewprofile" component={ViewProfile} />
           <Route exact path="/addpost" component={AddPost} />
+          <Route exact path="/viewpost" component={ViewPost} />
           <Route exact path="*" component={Error}>
             Error
           </Route>

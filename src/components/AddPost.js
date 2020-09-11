@@ -2,6 +2,8 @@ import React, { useState, useContext } from "react";
 import firebase from "firebase";
 import Context from "../context/Context";
 import { Redirect } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 const AddPost = () => {
   const { user } = useContext(Context);
   const [title, setTitle] = useState("");
@@ -24,30 +26,48 @@ const AddPost = () => {
     return a;
   };
   if (addClicked) {
-    const db = firebase.firestore();
-    const email = user.Email;
-    const id = email.substring(0, email.indexOf("@"));
-    const name = user.FirstName + user.LastName;
-    db.collection("posts").add({
-      userName: name,
-      userId: id,
-      title,
-      category,
-      organization,
-      workType,
-      location,
-      salary,
-      duration,
-      lastDate,
-      requirements,
-      specifications,
-      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-    return <Redirect to="/post" />;
+    if (title === "") {
+      toast("Enter Title of Job", { type: "error" });
+      setAddClicked(!addClicked);
+    } else if (category === "") {
+      toast("Enter Category ", { type: "error" });
+      setAddClicked(!addClicked);
+    } else if (organization === "") {
+      toast("Enter Organization Name ", { type: "error" });
+      setAddClicked(!addClicked);
+    } else if (workType === "") {
+      toast("Enter Work Type", { type: "error" });
+      setAddClicked(!addClicked);
+    } else if (location === "") {
+      toast("Enter Location", { type: "error" });
+      setAddClicked(!addClicked);
+    } else {
+      const db = firebase.firestore();
+      const email = user.Email;
+      const id = email.substring(0, email.indexOf("@"));
+      const name = user.FirstName + user.LastName;
+      db.collection("posts").add({
+        userName: name,
+        userId: id,
+        title,
+        category,
+        organization,
+        workType,
+        location,
+        salary,
+        duration,
+        lastDate,
+        requirements,
+        specifications,
+        timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+      return <Redirect to="/post" />;
+    }
   }
   if (cancelClicked) return <Redirect to="/post" />;
   return (
     <div id="addpost-container">
+      <ToastContainer autoClose={3000} hideProgressBar={true} />
       <div id="addpost-box">
         <div id="addpost-details-container">
           <div

@@ -7,10 +7,14 @@ import userIcon from "../img/user.png";
 import firebase from "firebase";
 import { Redirect } from "react-router-dom";
 const Chat = () => {
-  const { user, setCurrentChatUserDetails} = useContext(Context);
+  const {
+    user,
+    setCurrentChatUserDetails,
+    currentUser,
+    setCurrentUser,
+  } = useContext(Context);
   const [userChat, setUserChat] = useState([]);
   const [currentUserChats, setCurrentUserChats] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
   const [currentMessage, setCurrentMessage] = useState("");
   const [storeData, setStoreData] = useState(false);
   const [isBackClicked, setIsBackClicked] = useState(false);

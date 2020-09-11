@@ -966,7 +966,6 @@ nav div p {
 }
 #addpost-req input {
   font-weight: 600;
-  letter-spacing: 2px;
   border-radius: 5px;
   border: 1.5px solid #000000;
   outline: none;
@@ -986,7 +985,6 @@ nav div p {
 
 #addpost-spec input {
   font-weight: 600;
-  letter-spacing: 2px;
   border-radius: 5px;
   border: 1.5px solid #000000;
   outline: none;
