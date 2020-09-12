@@ -138,7 +138,7 @@ const SignUp = () => {
             <input
               className="sigup-input"
               placeHolder="Phone Number"
-              type="text"
+              type="number"
               name="number"
               value={number}
               onChange={(e) => setNumber(e.target.value)}

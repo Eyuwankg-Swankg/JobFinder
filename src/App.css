@@ -664,7 +664,7 @@ body ,html{
     top: 200px;
     height: 50%;
     opacity: 0.3;
-    z-index: -1;
+    z-index: 0;
   }
   #home-area div {
     justify-content: center;

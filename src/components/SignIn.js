@@ -31,11 +31,6 @@ const SignIn = () => {
         db.collection("users")
           .doc(id)
           .onSnapshot((e) => setUser(e.data()));
-        // res
-        //   .then((e) => {
-        //     setUser(e.data());
-        //   })
-        //   .catch((error) => toast(error.message, { type: "error" }));
         setEmail("");
         setPassword("");
         toast("Logged In", { type: "success" });

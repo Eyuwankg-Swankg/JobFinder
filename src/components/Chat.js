@@ -38,12 +38,16 @@ const Chat = () => {
       //   .get().then((e) => {
       //   setCurrentUserChats(e.docs[0].data().messages);
       // });
-      db.collection("chats")
-        .doc(userId)
-        .collection(currentUser)
-        .onSnapshot((response) => {
-          setCurrentUserChats(response.docs[0].data().messages);
-        });
+      try {
+        db.collection("chats")
+          .doc(userId)
+          .collection(currentUser)
+          .onSnapshot((response) => {
+            setCurrentUserChats(response.docs[0].data().messages);
+          });
+      } catch (error) {
+        console.error(error);
+      }
       const res = db.collection("users").doc(currentUser).get();
       res.then((e) => {
         setCurrentChatUserDetails(e.data());
@@ -100,23 +104,27 @@ const Chat = () => {
         <div id="chat-list">
           <img src={back} onClick={() => setIsBackClicked(!isBackClicked)} />
           <h3>Chats</h3>
-          {userChat.map((item, index) => (
-            <h5
-              key={index}
-              style={{
-                textAlign: "center",
-                height: "40px",
-                lineHeight: "40px",
-                borderBottom: "1px solid #000",
-                cursor: "pointer",
-              }}
-              onClick={() => {
-                setCurrentUser(item);
-              }}
-            >
-              {item}
-            </h5>
-          ))}
+          {userChat ? (
+            userChat.map((item, index) => (
+              <h5
+                key={index}
+                style={{
+                  textAlign: "center",
+                  height: "40px",
+                  lineHeight: "40px",
+                  borderBottom: "1px solid #000",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  setCurrentUser(item);
+                }}
+              >
+                {item}
+              </h5>
+            ))
+          ) : (
+            <></>
+          )}
         </div>
         {currentUser ? (
           <div className="chat-user">
@@ -125,12 +133,12 @@ const Chat = () => {
               <img
                 src={
                   currentChatUserDetails
-                    ? (currentChatUserDetails.dp
+                    ? currentChatUserDetails.dp
                       ? JSON.parse(currentChatUserDetails.dp)
-                      : userIcon)
+                      : userIcon
                     : userIcon
                 }
-                style={{ paddingLeft: "20px" }}
+                style={{ paddingLeft: "20px", cursor: "pointer" }}
                 onClick={() => setIsProfileClicked(!isProfileClicked)}
               />
             </h4>

@@ -3,6 +3,8 @@ import back from "../img/back.png";
 import Context from "../context/Context";
 import { Redirect } from "react-router-dom";
 import firebase from "firebase";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 const ViewPost = () => {
   const { user, currentPostDetails, setCurrentUser } = useContext(Context);
   const [backClicked, setBackClicked] = useState(false);
@@ -13,40 +15,44 @@ const ViewPost = () => {
     const db = firebase.firestore();
     var id = user.Email;
     var userId = id.slice(0, id.indexOf("@"));
-    db.collection("users")
-      .doc(currentPostDetails.userId)
-      .get()
-      .then((e) => setPostUser(e.data()));
-    db.collection("users")
-      .doc(userId)
-      .get()
-      .then((e) => setCurrentUserChats(e.data()));
-    if (postUser && currentUserChats) {
-      var a = postUser.chats;
-      var b = currentUserChats.chats;
-      if (a.indexOf(userId) == -1) {
-        a.unshift(userId);
-        b.unshift(currentPostDetails.userId);
-        //post user update
-        db.collection("users")
-          .doc(currentPostDetails.userId)
-          .update({ chats: a });
-        db.collection("chats")
-          .doc(currentPostDetails.userId)
-          .collection(userId)
-          .doc("messages")
-          .set({
-            messages: [],
-          });
-        //current user update
-        db.collection("users").doc(userId).update({ chats: b });
-        db.collection("chats")
-          .doc(userId)
-          .collection(currentPostDetails.userId)
-          .doc("messages")
-          .set({
-            messages: [],
-          });
+    if (currentPostDetails.userId === userId)
+      toast("This is Your Post", { type: "error" });
+    if (currentPostDetails.userId !== userId) {
+      db.collection("users")
+        .doc(currentPostDetails.userId)
+        .get()
+        .then((e) => setPostUser(e.data()));
+      db.collection("users")
+        .doc(userId)
+        .get()
+        .then((e) => setCurrentUserChats(e.data()));
+      if (postUser && currentUserChats) {
+        var a = postUser.chats;
+        var b = currentUserChats.chats;
+        if (a.indexOf(userId) == -1) {
+          a.unshift(userId);
+          b.unshift(currentPostDetails.userId);
+          //post user update
+          db.collection("users")
+            .doc(currentPostDetails.userId)
+            .update({ chats: a });
+          db.collection("chats")
+            .doc(currentPostDetails.userId)
+            .collection(userId)
+            .doc("messages")
+            .set({
+              messages: [],
+            });
+          //current user update
+          db.collection("users").doc(userId).update({ chats: b });
+          db.collection("chats")
+            .doc(userId)
+            .collection(currentPostDetails.userId)
+            .doc("messages")
+            .set({
+              messages: [],
+            });
+        }
       }
       setCurrentUser(currentPostDetails.userId);
       return <Redirect to="/chat" />;
@@ -56,6 +62,7 @@ const ViewPost = () => {
   if (currentPostDetails)
     return (
       <div id="addpost-container">
+        <ToastContainer autoClose={3000} hideProgressBar={true} />
         <div id="addpost-box">
           <img
             src={back}

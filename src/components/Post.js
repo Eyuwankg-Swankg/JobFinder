@@ -190,7 +190,7 @@ const Post = () => {
             </div>
           </div>
           <div className="post-parent">
-            <div className="post-list" style={{ top: "-150px" }}>
+            <div className="post-list" style={{ bottom: "65px" }}>
               {durationList ? (
                 durationList.map((item, index) => (
                   <h6 key={index} onClick={() => setDuration(item)}>
@@ -240,6 +240,7 @@ const Post = () => {
           src={AddPostIcon}
           id="post-add"
           onClick={() => setAddPost(!addPost)}
+          style={{cursor:"pointer"}}
         />
       </div>
     </div>
