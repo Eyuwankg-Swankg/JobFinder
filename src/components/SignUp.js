@@ -25,10 +25,10 @@ const SignUp = () => {
   const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
-  const [loggedIn,setLoggedIn]=useState(false)
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isVisible, setIsVisible] = useState({ pass: false, repass: false });
   const [backLink, setBackLink] = useState(false);
-  const [id,setId]=useState("");
+  const [id, setId] = useState("");
   //Firestore
   const firebaseCreateUser = () => {
     firebase
@@ -46,7 +46,9 @@ const SignUp = () => {
           Education: [],
           Skills: [],
           Experience: [],
-          chats:[]
+          chats: [],
+          dp: "",
+          resume: "",
         });
         setId(email.substring(0, email.indexOf("@")));
         setFirstName("");

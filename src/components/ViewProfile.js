@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import back from "../img/back.png";
+import userIcon from "../img/user.png"
 import Context from "../context/Context";
 import { Redirect } from "react-router-dom";
 const ViewProfile = () => {
@@ -14,6 +15,7 @@ const ViewProfile = () => {
   const [education, setEducation] = useState(null);
   const [skills, setSkills] = useState(null);
   const [experiences, setExperiences] = useState(null);
+  const [dp,setDp]=useState("");
   const [resume, setResume] = useState(null);
   const [isBackClicked, setIsBackClicked] = useState(false);
   useEffect(() => {
@@ -26,6 +28,7 @@ const ViewProfile = () => {
     setEducation(currentChatUserDetails.Education);
     setSkills(currentChatUserDetails.Skills);
     setExperiences(currentChatUserDetails.Experience);
+    setDp(currentChatUserDetails.dp);
   }, []);
   if (isBackClicked) return <Redirect to="/chat" />;
   return (
@@ -40,6 +43,11 @@ const ViewProfile = () => {
           style={{ paddingLeft: "20px", cursor: "pointer" }}
           onClick={() => setIsBackClicked(!isBackClicked)}
         />
+        <div id="proile-img-container">
+          <img
+            src={dp ? JSON.parse(dp) : userIcon}
+          />
+        </div>
         <div id="profile-details-container">
           <div id="profile-details-sub">
             <div>

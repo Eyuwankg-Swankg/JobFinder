@@ -10,6 +10,7 @@ const Chat = () => {
   const {
     user,
     setCurrentChatUserDetails,
+    currentChatUserDetails,
     currentUser,
     setCurrentUser,
   } = useContext(Context);
@@ -122,7 +123,13 @@ const Chat = () => {
             <h4>
               {currentUser}
               <img
-                src={userIcon}
+                src={
+                  currentChatUserDetails
+                    ? (currentChatUserDetails.dp
+                      ? JSON.parse(currentChatUserDetails.dp)
+                      : userIcon)
+                    : userIcon
+                }
                 style={{ paddingLeft: "20px" }}
                 onClick={() => setIsProfileClicked(!isProfileClicked)}
               />

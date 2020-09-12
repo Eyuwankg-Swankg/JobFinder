@@ -1,9 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
-import {Helmet} from "react-helmet"
+import { Helmet } from "react-helmet";
 import userIcon from "../img/user.png";
 import back from "../img/back.png";
+import closeIcon from "../img/close.png";
+import { readAndCompressImage } from "browser-image-resizer";
+import { imageConfig } from "../img/imageConfig";
 import Context from "../context/Context";
 import { Redirect } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import firebase from "firebase";
 const Profile = () => {
   //Context
@@ -18,9 +22,13 @@ const Profile = () => {
   const [education, setEducation] = useState([]);
   const [skills, setSkills] = useState([]);
   const [experiences, setExperiences] = useState([]);
-  const [resume, setResume] = useState(null);
+  const [dp, setDp] = useState("");
+  const [resume, setResume] = useState("");
+  const [isUpload, setIsUploaded] = useState(true);
   const [isCancelClicked, setIsCancelClicked] = useState(false);
   const [save, setSave] = useState(false);
+  //modal
+  const [modal, setModal] = useState(false);
   //changeValue in array State
   function changeState(arr, index, value) {
     var a = [];
@@ -41,6 +49,8 @@ const Profile = () => {
       setEducation(user.Education);
       setSkills(user.Skills);
       setExperiences(user.Experience);
+      setDp(user.dp);
+      setResume(user.resume);
     }
   }, [user]);
 
@@ -65,12 +75,63 @@ const Profile = () => {
       Education: education,
       Skills: skills,
       Experience: experiences,
+      dp: dp,
+      resume: resume,
     });
     setSave(true);
+  };
+  const uploadDp = async (e) => {
+    try {
+      const file = e.target.files[0];
+      var metaData = {
+        contentType: file.type,
+      };
+      let resizedImage = await readAndCompressImage(file, imageConfig);
+      const id = email.slice(0, email.indexOf("@"));
+      const storageRef = await firebase.storage().ref();
+      var uploadTask = storageRef
+        .child("images/" + id)
+        .put(resizedImage, metaData);
+
+      setIsUploaded(false);
+      console.log("Upload Task");
+      uploadTask.on(
+        firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot) => {
+          var progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED:
+              toast("Upload Failed", { type: "error" });
+              setIsUploaded(true);
+            case firebase.storage.TaskState.RUNNING:
+              toast("Upload in Progress", { type: "primary" });
+              break;
+          }
+          if (progress === 100) {
+            setIsUploaded(true);
+            toast("Upload Success", { type: "success" });
+          }
+        },
+        (error) => {
+          toast("Something Went Wrong", { type: "error" });
+          setIsUploaded(true);
+        },
+        function () {
+          uploadTask.snapshot.ref
+            .getDownloadURL()
+            .then((downloadUrl) => setDp(JSON.stringify(downloadUrl)))
+            .catch((error) => toast("Something went wrong in URL"));
+        }
+      );
+    } catch (err) {
+      console.error(err);
+    }
   };
   if (isCancelClicked) return <Redirect to="/post" />;
   return (
     <div id="profile-container">
+      <ToastContainer />
       <Helmet>
         <title>Profile</title>
       </Helmet>
@@ -82,7 +143,11 @@ const Profile = () => {
           onClick={() => setIsCancelClicked(!isCancelClicked)}
         />
         <div id="proile-img-container">
-          <img src={userIcon} />
+          <img
+            src={dp ? JSON.parse(dp) : userIcon}
+            onClick={() => setModal(!modal)}
+            style={{ cursor: "pointer" }}
+          />
         </div>
         <div id="profile-details-container">
           <div id="profile-details-sub">
@@ -231,6 +296,29 @@ const Profile = () => {
               </button>
             </div>
           </div>
+        </div>
+      </div>
+      {/* modal */}
+      <div
+        className={
+          modal
+            ? "profile-modal-bg profile-modal-bg-active"
+            : "profile-modal-bg"
+        }
+      >
+        <div className="profile-modal">
+          <div>
+            <img src={closeIcon} onClick={() => setModal(!modal)} />
+          </div>
+          <h5>Upload Your Profile Picture</h5>
+          <input
+            type="file"
+            name="image"
+            accept="image/*"
+            multiple={false}
+            onChange={(e) => uploadDp(e)}
+          />
+          <button onClick={() => setModal(!modal)}>Upload</button>
         </div>
       </div>
     </div>
