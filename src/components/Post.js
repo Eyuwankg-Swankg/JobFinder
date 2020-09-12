@@ -12,7 +12,8 @@ const Post = () => {
   //Context
   const { user } = useContext(Context);
   //states
-  const [query, setQuery] = useState("");
+  const [search, setSearch] = useState("");
+  const [searchStr, setSearchStr] = useState("");
   const [jobPost, setJobPost] = useState([]);
   const [classes, setClasses] = useState("");
   const [firebaseData, setFirebaseData] = useState(null);
@@ -20,6 +21,7 @@ const Post = () => {
   const [workType, setWorkType] = useState("");
   const [location, setLocation] = useState("");
   const [duration, setDuration] = useState("");
+  const [salary, setSalary] = useState(0);
   const [categoryList, setCategoryList] = useState([]);
   const [workTypeList, setWorkTypeList] = useState([]);
   const [locationList, setLocationList] = useState([]);
@@ -58,21 +60,18 @@ const Post = () => {
         if (c.indexOf(item.location) === -1 && item.location !== "")
           c.push(item.location);
         if (d.indexOf(item.duration) === -1 && item.duration !== "")
-          d.push(durationList, item.duration);
+          d.push(item.duration);
       });
+      a.unshift("Select Category");
+      b.unshift("Select WorkType");
+      c.unshift("Select Location");
+      d.unshift("Select Duration");
       setCategoryList(a);
       setWorkTypeList(b);
       setLocationList(c);
       setDurationList(d);
     }
   }, [jobPost]);
-  function updateState(arr, value) {
-    var a = [];
-    console.log(arr);
-    for (let i = 0; i < arr.length; i++) a.push(arr[i]);
-    a.push(value);
-    return a;
-  }
   if (isChatClicked) return <Redirect to="/chat" />;
   if (isProfileClicked) return <Redirect to="/profile" />;
   if (logout) return <Redirect to="/" />;
@@ -88,15 +87,16 @@ const Post = () => {
           type="text"
           name="search"
           placeholder="Search"
-          value={query}
+          value={searchStr}
           onChange={(e) => {
-            setQuery(e.target.value);
+            setSearchStr(e.target.value);
           }}
         />
         <img
           src={searchIcon}
           id="home-search"
-          // TODO: search accordingly
+          onClick={() => setSearch(searchStr)}
+          style={{ cursor: "pointer" }}
         />
         <img
           src={chatIcon}
@@ -134,7 +134,6 @@ const Post = () => {
               placeholder="Search Category"
               className="post-filters"
               value={category}
-              disabled
             />
             <div className="post-list">
               {categoryList ? (
@@ -156,7 +155,6 @@ const Post = () => {
               placeholder="Search Work type"
               className="post-filters"
               value={workType}
-              disabled
             />
             <div className="post-list">
               {workTypeList ? (
@@ -178,7 +176,6 @@ const Post = () => {
               placeholder="Search Location"
               className="post-filters"
               value={location}
-              disabled
             />
             <div className="post-list">
               {locationList ? (
@@ -193,7 +190,7 @@ const Post = () => {
             </div>
           </div>
           <div className="post-parent">
-            <div className="post-list" style={{top:"-150px"}}>
+            <div className="post-list" style={{ top: "-150px" }}>
               {durationList ? (
                 durationList.map((item, index) => (
                   <h6 key={index} onClick={() => setDuration(item)}>
@@ -211,22 +208,32 @@ const Post = () => {
               placeholder="Search Duration"
               className="post-filters"
               value={duration}
-              disabled
             />
           </div>
           <div>
-            <h5>Expected Salary</h5>
+            <h5>Minimum Salary</h5>
             <input
               type="number"
               name="Salary"
               placeholder="Search Salary"
               className="post-filters"
+              value={salary}
+              onChange={(e) => setSalary(e.target.value)}
             />
           </div>
         </div>
         <div id="post-jobs">
           {jobPost.map((item, index) => (
-            <JobCard details={item} key={index} />
+            <JobCard
+              details={item}
+              key={index}
+              category={category}
+              workType={workType}
+              location={location}
+              duration={duration}
+              salary={salary}
+              search={search}
+            />
           ))}
         </div>
         <img
