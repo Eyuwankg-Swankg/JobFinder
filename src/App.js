@@ -50,9 +50,7 @@ function App() {
           <Route exact path="/viewprofile" component={ViewProfile} />
           <Route exact path="/addpost" component={AddPost} />
           <Route exact path="/viewpost" component={ViewPost} />
-          <Route exact path="*" component={Error}>
-            Error
-          </Route>
+          <Route exact path="*" component={Home}/>
         </Switch>
       </Router>
     </Context.Provider>
