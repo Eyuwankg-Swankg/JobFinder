@@ -39,7 +39,7 @@ function App() {
         setCurrentUser,
       }}
     >
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/signin" component={SignIn} />
