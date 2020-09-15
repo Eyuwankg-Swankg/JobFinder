@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/JobFinder/static/css/main.39e78ffc.chunk.css",
+    "main.js": "/JobFinder/static/js/main.5674c353.chunk.js",
+    "main.js.map": "/JobFinder/static/js/main.5674c353.chunk.js.map",
+    "runtime-main.js": "/JobFinder/static/js/runtime-main.4c341081.js",
+    "runtime-main.js.map": "/JobFinder/static/js/runtime-main.4c341081.js.map",
+    "static/css/2.6b5d40a7.chunk.css": "/JobFinder/static/css/2.6b5d40a7.chunk.css",
+    "static/js/2.77669f2f.chunk.js": "/JobFinder/static/js/2.77669f2f.chunk.js",
+    "static/js/2.77669f2f.chunk.js.map": "/JobFinder/static/js/2.77669f2f.chunk.js.map",
+    "index.html": "/JobFinder/index.html",
+    "precache-manifest.5bc60dfff5230efe8a44c564b1d4c459.js": "/JobFinder/precache-manifest.5bc60dfff5230efe8a44c564b1d4c459.js",
+    "service-worker.js": "/JobFinder/service-worker.js",
+    "static/css/2.6b5d40a7.chunk.css.map": "/JobFinder/static/css/2.6b5d40a7.chunk.css.map",
+    "static/css/main.39e78ffc.chunk.css.map": "/JobFinder/static/css/main.39e78ffc.chunk.css.map",
+    "static/js/2.77669f2f.chunk.js.LICENSE.txt": "/JobFinder/static/js/2.77669f2f.chunk.js.LICENSE.txt",
+    "static/media/send.svg": "/JobFinder/static/media/send.660915bc.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.4c341081.js",
+    "static/css/2.6b5d40a7.chunk.css",
+    "static/js/2.77669f2f.chunk.js",
+    "static/css/main.39e78ffc.chunk.css",
+    "static/js/main.5674c353.chunk.js"
+  ]
+}
