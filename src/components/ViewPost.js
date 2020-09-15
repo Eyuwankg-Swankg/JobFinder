@@ -3,6 +3,7 @@ import back from "../img/back.png";
 import Context from "../context/Context";
 import { Redirect } from "react-router-dom";
 import firebase from "firebase";
+import { ImSpinner11 } from "react-icons/im";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 const ViewPost = () => {
@@ -11,7 +12,9 @@ const ViewPost = () => {
   const [redirectChat, setRedirectChat] = useState(false);
   const [postUser, setPostUser] = useState(null);
   const [currentUserChats, setCurrentUserChats] = useState(null);
+  const [modal, setModal] = useState(false);
   if (redirectChat) {
+    setModal(!modal);
     const db = firebase.firestore();
     var id = user.Email;
     var userId = id.slice(0, id.indexOf("@"));
@@ -21,11 +24,17 @@ const ViewPost = () => {
       db.collection("users")
         .doc(currentPostDetails.userId)
         .get()
-        .then((e) => setPostUser(e.data()));
+        .then((e) => {
+          setPostUser(e.data());
+        })
+        .catch((err) =>
+          toast("something went wrong in postUser", { type: "error" })
+        );
       db.collection("users")
         .doc(userId)
         .get()
-        .then((e) => setCurrentUserChats(e.data()));
+        .then((e) => setCurrentUserChats(e.data()))
+        .catch();
       if (postUser && currentUserChats) {
         var a = postUser.chats;
         var b = currentUserChats.chats;
@@ -55,7 +64,7 @@ const ViewPost = () => {
         }
       }
       setCurrentUser(currentPostDetails.userId);
-      return <Redirect to="/chat" />;
+      setModal(!modal);
     }
   }
   if (backClicked) return <Redirect to="/post" />;
@@ -214,6 +223,11 @@ const ViewPost = () => {
               Chat
             </button>
           </div>
+        </div>
+        <div
+          className={modal ? "spinner-visible " : "spinner-visible invisible"}
+        >
+          <ImSpinner11 id="spinner" />
         </div>
       </div>
     );
